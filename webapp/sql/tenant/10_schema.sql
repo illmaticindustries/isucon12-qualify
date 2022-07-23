@@ -32,3 +32,4 @@ CREATE TABLE player_score (
 );
 
 CREATE INDEX score_index ON player_score(competition_id);
+CREATE INDEX idx_row_num ON player_score(row_num);
