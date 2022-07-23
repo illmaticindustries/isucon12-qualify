@@ -1267,7 +1267,7 @@ func playerHandler(c echo.Context) error {
 	if err := tenantDB.SelectContext(
 		ctx,
 		&pss,
-		"select score, competition_id from competition join ( SELECT  competition_id  , score , max(row_num) FROM player_score WHERE tenant_id = ?  AND player_id =  ?   group by competition_id) as A  ON competition.id = A.competition_id;",
+		"select score, competition_id from competition join ( SELECT  competition_id  , score , max(row_num) FROM player_score WHERE tenant_id = ?  AND player_id =  ?   group by competition_id) as A  ON competition.id = A.competition_id order by created_at",
 		v.tenantID,
 		p.ID,
 	); err != nil && !errors.Is(err, sql.ErrNoRows) {
