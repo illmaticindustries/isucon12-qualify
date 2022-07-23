@@ -1229,14 +1229,14 @@ func playerHandler(c echo.Context) error {
 		return fmt.Errorf("error retrievePlayer: %w", err)
 	}
 	cs := []CompetitionRow{}
-	if err := tenantDB.SelectContext(
-		ctx,
-		&cs,
-		"SELECT * FROM competition WHERE tenant_id = ? ORDER BY created_at ASC",
-		v.tenantID,
-	); err != nil && !errors.Is(err, sql.ErrNoRows) {
-		return fmt.Errorf("error Select competition: %w", err)
-	}
+	//	if err := tenantDB.SelectContext(
+	//		ctx,
+	//		&cs,
+	//		"SELECT * FROM competition WHERE tenant_id = ? ORDER BY created_at ASC",
+	//		v.tenantID,
+	//	); err != nil && !errors.Is(err, sql.ErrNoRows) {
+	//		return fmt.Errorf("error Select competition: %w", err)
+	//	}
 
 	// player_scoreを読んでいるときに更新が走ると不整合が起こるのでロックを取得する
 	fl, err := flockByTenantID(v.tenantID)
@@ -1267,7 +1267,7 @@ func playerHandler(c echo.Context) error {
 	if err := tenantDB.SelectContext(
 		ctx,
 		&pss,
-		"select score, competition_id from competition join ( SELECT  competition_id  , score , max(row_num) FROM player_score WHERE tenant_id = ?  AND player_id =  ?   group by competition_id) as A  ON competition.id = A.competition_id order by created_at",
+		"select score, competition_id from competition join ( SELECT  competition_id  , score , max(row_num) FROM player_score WHERE tenant_id = ?  AND player_id =  ?   group by competition_id) as A  ON competition.id = A.competition_id",
 		v.tenantID,
 		p.ID,
 	); err != nil && !errors.Is(err, sql.ErrNoRows) {
