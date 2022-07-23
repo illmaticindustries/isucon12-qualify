@@ -1455,8 +1455,10 @@ func competitionRankingHandler(c echo.Context) error {
 	// 		break
 	// 	}
 	// }
-	if int(limit-100) < len(pagedRanks) {
-		pagedRanks = pagedRanks[limit-100:]
+	if int(rankAfter) < len(pagedRanks) {
+		pagedRanks = pagedRanks[rankAfter:]
+	} else {
+		pagedRanks = []CompetitionRank{}
 	}
 
 	res := SuccessResult{
