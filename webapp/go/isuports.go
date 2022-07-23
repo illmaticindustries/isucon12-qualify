@@ -1402,9 +1402,10 @@ func competitionRankingHandler(c echo.Context) error {
 		// "SELECT * FROM player_score WHERE tenant_id = ? AND competition_id = ? ORDER BY row_num DESC",
 		`
 		select ROW_NUMBER() OVER(ORDER BY score desc,row_num asc) as rank,ps.score,p.id as player_id,p.display_name as player_display_name,ps.row_num from player_score ps 
-		join (SELECT player_id,max(row_num) as maxrownum 
+		join (SELECT player_id,max(row_num) as maxrownum ,competition_id
 		FROM player_score where competition_id = ? GROUP by player_id) maxrow 
 		on ps.row_num = maxrow.maxrownum and ps.player_id = maxrow.player_id 
+		and ps.competition_id = maxrow.competition_id
 		join player p 
 		on ps.player_id = p.id 
 		order by score desc,row_num asc limit ?
