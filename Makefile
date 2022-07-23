@@ -7,10 +7,7 @@ deploy:
 		git reset --hard origin/$(BRANCH)"
 
 build:
-	ssh isucon12-qualify-1 " \
-		cd /home/isucon/webapp/go; \
-		/home/isucon/local/go/bin/go build -o isucholar; \
-		sudo systemctl restart isucholar.go.service"
+	ssh isucon12-qualify-1 "sudo systemctl restart isuports.service"
 
 mysql-deploy:
 	ssh isucon12-qualify-1 "sudo dd of=/etc/mysql/mysql.conf.d/mysqld.cnf" < ./etc/mysql/mysql.conf.d/mysqld.cnf
