@@ -14,3 +14,4 @@
 .vscode
 /initial_data
 /tmp
+pprof/pprof.main.samples.cpu.*.pb.gz
