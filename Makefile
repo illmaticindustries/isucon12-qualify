@@ -52,12 +52,13 @@ alp:
 	ssh isucon12-qualify-1 "sudo alp ltsv --file=/var/log/nginx/access.log --nosave-pos --pos /tmp/alp.pos --sort $(ALPSORT) --reverse -o $(OUTFORMAT) -m $(ALPM) -q"
 
 .PHONY: pprof
+pprof: pprof-build pprof-request
 pprof-build:
 	ssh isucon12-qualify-1 " \
 		cd /home/isucon/webapp/go/cmd/isuports; \
 		rm -f pprof-isuports; \
 		/usr/local/go/bin/go build -o pprof-isuports"	
-pprof:
+pprof-request:
 	ssh isucon12-qualify-1 " \
 		/usr/local/go/bin/go tool pprof -seconds=60 /home/isucon/webapp/go/isuports/pprof-isuports http://localhost:6060/debug/pprof/profile"
 
