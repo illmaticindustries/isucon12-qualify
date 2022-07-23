@@ -22,6 +22,5 @@ mysql -u"$ISUCON_DB_USER" \
 
 
 # SQLiteのデータベースを初期化
-mkdir ../tenant_db/ram
 rm -f ../tenant_db/ram/*.db
 cp -r ../../initial_data/*.db ../tenant_db/ram/
