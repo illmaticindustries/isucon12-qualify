@@ -7,6 +7,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	golog "log"
+
 	"net/http"
 	"os"
 	"os/exec"
@@ -17,6 +19,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	_ "net/http/pprof"
 
 	"github.com/go-sql-driver/mysql"
 	"github.com/gofrs/flock"
@@ -191,11 +195,14 @@ func Run() {
 	}
 	adminDB.SetMaxOpenConns(10)
 	defer adminDB.Close()
-
+	go func() {
+		golog.Println(http.ListenAndServe("localhost:6060", nil))
+	}()
 	port := getEnv("SERVER_APP_PORT", "3000")
 	e.Logger.Infof("starting isuports server on : %s ...", port)
 	serverPort := fmt.Sprintf(":%s", port)
 	e.Logger.Fatal(e.Start(serverPort))
+
 }
 
 // エラー処理関数
