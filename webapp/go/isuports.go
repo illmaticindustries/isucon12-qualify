@@ -1445,6 +1445,9 @@ func competitionRankingHandler(c echo.Context) error {
 	// 		break
 	// 	}
 	// }
+	if int(limit-100) < len(pagedRanks) {
+		pagedRanks = pagedRanks[limit-100:]
+	}
 
 	res := SuccessResult{
 		Status: true,
@@ -1454,7 +1457,7 @@ func competitionRankingHandler(c echo.Context) error {
 				Title:      competition.Title,
 				IsFinished: competition.FinishedAt.Valid,
 			},
-			Ranks: pagedRanks[limit-100:],
+			Ranks: pagedRanks,
 		},
 	}
 	return c.JSON(http.StatusOK, res)
