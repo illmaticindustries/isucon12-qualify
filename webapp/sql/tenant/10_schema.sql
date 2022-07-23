@@ -31,3 +31,4 @@ CREATE TABLE player_score (
   updated_at BIGINT NOT NULL
 );
 
+CREATE INDEX score_index ON player_score(competition_id);
