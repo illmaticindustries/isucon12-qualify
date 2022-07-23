@@ -36,16 +36,13 @@ pt-query-digest:
 	ssh isucon12-qualify-1 "sudo pt-query-digest --limit 10 /var/log/mysql/mysql-slow.log"
 
 ALPSORT=sum
-# /api/courses/[0-9A-Z]{26}/classes/[0-9A-Z]{26}/assignments/export
-# /api/courses/[0-9A-Z]{26}/classes/[0-9A-Z]{26}/assignments/scores
-# /api/courses/[0-9A-Z]{26}/classes/[0-9A-Z]{26}/assignments
-# /api/courses/[0-9A-Z]{26}/classes
-# /api/courses/[0-9A-Z]{26}/status
-# /api/courses/[0-9A-Z]{26}
-# /api/courses?.*
-# /api/announcements/[0-9A-Z]{26}
-# /api/announcements?.*
-ALPM="/api/courses/[0-9A-Z]{26}/classes/[0-9A-Z]{26}/assignments/export,/api/courses/[0-9A-Z]{26}/classes/[0-9A-Z]{26}/assignments/scores,/api/courses/[0-9A-Z]{26}/classes/[0-9A-Z]{26}/assignments,/api/announcements/[0-9A-Z]{26},/api/courses/[0-9A-Z]{26}/status,/api/courses/[0-9A-Z]{26}/classes,/api/courses/[0-9A-Z]{26},/api/courses?.*,/api/announcements?.*"
+# /api/player/competition/[0-9a-z]+/ranking
+# /api/player/player/[0-9a-z]+
+# /api/organizer/competition/[0-9a-z]+/finish
+# /api/organizer/competition/[0-9a-z]+/score
+# /api/organizer/player/[0-9a-z]+/disqualified
+# /api/admin/tenants/billing
+ALPM=/api/player/competition/[0-9a-z]+/ranking,/api/player/player/[0-9a-z]+,/api/organizer/competition/[0-9a-z]+/finish,/api/organizer/competition/[0-9a-z]+/score,/api/organizer/player/[0-9a-z]+/disqualified,/api/admin/tenants/billing
 OUTFORMAT=count,method,uri,min,max,sum,avg,p99
 
 alp:
