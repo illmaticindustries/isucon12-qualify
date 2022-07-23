@@ -53,7 +53,10 @@ alp:
 
 .PHONY: pprof
 pprof:
-	ssh isucon12-qualify-1 "/home/isucon/local/go/bin/go tool pprof -seconds=75 webapp/go/isucholar http://localhost:6060/debug/pprof/profile"
+	ssh isucon12-qualify-1 " \
+		cd /home/isucon/webapp/go/cmd; \
+		/usr/local/go/bin/go build -o pprof-isuports; \
+		/usr/local/go/bin/go tool pprof -seconds=60 /home/isucon/webapp/go/pprof-isuports http://localhost:6060/debug/pprof/profile"
 
 pprof-kill:
 	ssh isucon12-qualify-1 "pgrep -f 'pprof' | xargs kill;"
