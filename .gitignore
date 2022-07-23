@@ -11,6 +11,6 @@
 .profile
 .ssh
 .sudo_as_admin_successful
-initial_data
-tmp
-
+.vscode
+/initial_data
+/tmp
