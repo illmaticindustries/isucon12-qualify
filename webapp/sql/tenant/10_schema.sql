@@ -35,4 +35,4 @@ CREATE INDEX score_index ON player_score(competition_id);
 
 
 PRAGMA synchronous  = OFF; 
-PRAGMA cache_size=-400000;
+PRAGMA cache_size=-200000;
