@@ -11,6 +11,7 @@ require (
 	github.com/lestrrat-go/jwx/v2 v2.0.2
 	github.com/mattn/go-sqlite3 v1.14.13
 	github.com/shogo82148/go-sql-proxy v0.6.1
+	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4
 )
 
 require (

@@ -10,13 +10,13 @@ build:
 	ssh isucon12-qualify-1 "sudo systemctl restart isuports.service"
 
 mysql-deploy:
-	ssh isucon12-qualify-1 "sudo dd of=/etc/mysql/mysql.conf.d/mysqld.cnf" < ./etc/mysql/mysql.conf.d/mysqld.cnf
+	ssh isucon12-qualify-2 "sudo dd of=/etc/mysql/mysql.conf.d/mysqld.cnf" < ./etc/mysql/mysql.conf.d/mysqld.cnf
 
 mysql-rotate:
-	ssh isucon12-qualify-1 "sudo rm -f /var/log/mysql/mysql-slow.log"
+	ssh isucon12-qualify-2 "sudo rm -f /var/log/mysql/mysql-slow.log"
 
 mysql-restart:
-	ssh isucon12-qualify-1 "sudo systemctl restart mysql.service"
+	ssh isucon12-qualify-2 "sudo systemctl restart mysql.service"
 
 nginx-rotate:
 	ssh isucon12-qualify-1 "sudo rm -f /var/log/nginx/access.log"
@@ -33,7 +33,7 @@ bench-run:
 		./bin/benchmarker -target localhost:443 -tls"
 
 pt-query-digest:
-	ssh isucon12-qualify-1 "sudo pt-query-digest --limit 10 /var/log/mysql/mysql-slow.log"
+	ssh isucon12-qualify-2 "sudo pt-query-digest --limit 10 /var/log/mysql/mysql-slow.log"
 
 ALPSORT=sum
 # /api/player/competition/[0-9a-z]+/ranking
@@ -54,10 +54,10 @@ pprof-build:
 	ssh isucon12-qualify-1 " \
 		cd /home/isucon/webapp/go/cmd/isuports; \
 		rm -f pprof-isuports; \
-		/usr/local/go/bin/go build -o pprof-isuports"	
+		/usr/local/go/bin/go build -o pprof-isuports"
 pprof-request:
 	ssh isucon12-qualify-1 " \
-		/usr/local/go/bin/go tool pprof -seconds=60 /home/isucon/webapp/go/isuports/pprof-isuports http://localhost:6060/debug/pprof/profile"
+		/usr/local/go/bin/go tool pprof -seconds=75 /home/isucon/webapp/go/isuports/pprof-isuports http://localhost:6060/debug/pprof/profile"
 
 pprof-kill:
 	ssh isucon12-qualify-1 "pgrep -f 'pprof' | xargs kill;"
