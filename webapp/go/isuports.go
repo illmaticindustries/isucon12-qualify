@@ -567,6 +567,7 @@ func billingReportByCompetition(ctx context.Context, tenantDB dbOrTx, tenantID i
 		}
 		return nil
 	})
+	// スコアを登録した参加者のIDを取得する
 	scoredPlayerIDs := []string{}
 	eg.Go(func() error {
 		// player_scoreを読んでいるときに更新が走ると不整合が起こるのでロックを取得する
@@ -576,8 +577,6 @@ func billingReportByCompetition(ctx context.Context, tenantDB dbOrTx, tenantID i
 		}
 		defer fl.Close()
 
-		// スコアを登録した参加者のIDを取得する
-		scoredPlayerIDs := []string{}
 		if err := tenantDB.SelectContext(
 			concurCtx,
 			&scoredPlayerIDs,
