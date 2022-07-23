@@ -38,6 +38,7 @@ const (
 	tenantDBSchemaFilePath = "../sql/tenant/10_schema.sql"
 	initializeScript       = "../sql/init.sh"
 	cookieName             = "isuports_session"
+	tenantDBBasePath       = "../tenant_db/ram"
 
 	RoleAdmin     = "admin"
 	RoleOrganizer = "organizer"
@@ -78,7 +79,7 @@ func connectAdminDB() (*sqlx.DB, error) {
 
 // テナントDBのパスを返す
 func tenantDBPath(id int64) string {
-	tenantDBDir := getEnv("ISUCON_TENANT_DB_DIR", "../tenant_db")
+	tenantDBDir := getEnv("ISUCON_TENANT_DB_DIR", tenantDBBasePath)
 	return filepath.Join(tenantDBDir, fmt.Sprintf("%d.db", id))
 }
 
@@ -432,7 +433,7 @@ type PlayerScoreRow struct {
 
 // 排他ロックのためのファイル名を生成する
 func lockFilePath(id int64) string {
-	tenantDBDir := getEnv("ISUCON_TENANT_DB_DIR", "../tenant_db")
+	tenantDBDir := getEnv("ISUCON_TENANT_DB_DIR", tenantDBBasePath)
 	return filepath.Join(tenantDBDir, fmt.Sprintf("%d.lock", id))
 }
 
