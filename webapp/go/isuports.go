@@ -1393,7 +1393,7 @@ func competitionRankingHandler(c echo.Context) error {
 	}
 	defer fl.Close()
 	// pss := []PlayerScoreRow{}
-	limit := rankAfter - 1 + 100
+	limit := rankAfter + 100
 	// pagedRanks := make([]CompetitionRank, 0, limit)
 	pagedRanks := []CompetitionRank{}
 	if err := tenantDB.SelectContext(
