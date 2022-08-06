@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -u
+
+PR=$(echo $GITHUB_REF_NAME | sed -e 's/\/merge//')
+if [ $PR = "main" ]; then
+	echo "PR is main, skip post comment"
+exit 0
+fi
+
+echo '```' > comment.txt
+cat $1 >> comment.txt
+echo '```' >> comment.txt
+echo "\n$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >> comment.txt
+
+gh issue comment $PR --body-file comment.txt
